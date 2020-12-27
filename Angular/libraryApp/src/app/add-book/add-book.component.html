@@ -1,23 +1,36 @@
+<p class="book-form-heading">Add book</p>
 <form #bookForm="ngForm">
     <div class="form-group">
-      <label>Title</label>
-      <input type="text" [(ngModel)]="book.title" class="form-control" name="title" placeholder="Enter title">
+      <label>Title </label>
+      <input type="text" [(ngModel)]="book.title" class="form-control" name="title" placeholder="Enter title" [class.display-error]="isSubmitted" minlength="5" #titleRef="ngModel" required>
+      <div class="validation-message" *ngIf="isSubmitted">
+        <p *ngIf="titleRef.errors?.required">Title is required</p>
+        <p *ngIf="titleRef.errors?.minlength">Enter at least 5 characters</p>
+      </div>
     </div>
     <div class="form-group">
         <label>Author</label>
-        <input type="text" [(ngModel)]="book.author" class="form-control" name="author" placeholder="Enter author">
+        <input type="text" [(ngModel)]="book.author" class="form-control" name="author" placeholder="Enter author" [class.display-error]="isSubmitted" minlength="5" #authorRef="ngModel" required>
+        <div class="validation-message" *ngIf="isSubmitted">
+          <p *ngIf="authorRef.errors?.required">Author is required</p>
+          <p *ngIf="authorRef.errors?.minlength">Enter at least 5 characters</p>
+        </div>
       </div>
       <div class="form-group">
         <label>Category</label>
-        <select class="form-control" [(ngModel)]="book.categoryId" name="categoryId">
+        <select class="form-control" [(ngModel)]="book.catego ryId" name="categoryId" [class.display-error]="isSubmitted" #categoryRef="ngModel" required>
             <option *ngFor="let bookCategroy of bookCategories" value="{{bookCategroy.id}}">{{bookCategroy.name}}</option>
         </select>
+        <div class="validation-message" *ngIf="isSubmitted">
+          <p *ngIf="categoryRef.errors?.required">Category is required</p>
+        </div>
       </div>
       <div class="form-group">
         <label>Price</label>
-        <input type="number" [(ngModel)]="book.price" class="form-control" name="price" placeholder="Enter price">
+        <input type="number" [(ngModel)]="book.price" class="form-control" name="price" placeholder="Enter price"  [class.display-error]="isSubmitted" #priceRef="ngModel" required>
+        <div class="validation-message" *ngIf="isSubmitted">
+          <p *ngIf="priceRef.errors?.required">Price is required</p>
+        </div>
       </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" (click)="saveBook(bookForm)">Submit</button>
   </form>
-  <p>{{getValue(bookForm)}}</p>
-  <button type="button" class="btn btn-primary" (click)="logBookDetails()">Log Details</button>

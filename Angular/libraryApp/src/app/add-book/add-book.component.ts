@@ -12,6 +12,7 @@ import { IBookCategory } from '../book-hyphen.interface';
 export class AddBookComponent implements OnInit {
   public book:IBookDetail = Object.create({});
   public bookCategories:Array<IBookCategory>=[];
+  public isSubmitted:boolean;
 
   constructor() { 
     this._setCategories();
@@ -19,13 +20,19 @@ export class AddBookComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  public getValue(bookForm:NgForm){
-    return JSON.stringify(bookForm.value);
-  }
-
-  public logBookDetails(){
+  public logBookDetails(bookForm:any){
+    console.log(bookForm.invalid)
     console.log(this.book);
+  }
+ 
+  public saveBook(bookForm:NgForm){
+    if(!this.isSubmitted){
+      this.isSubmitted = true;
+    }
+    if(bookForm.valid){
+      console.log(this.book);
+      console.log("Book has been added");
+    }
   }
 
   private _setCategories(){

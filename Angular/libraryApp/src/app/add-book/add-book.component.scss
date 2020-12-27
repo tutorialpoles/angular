@@ -1,0 +1,16 @@
+.book-form-heading{
+    text-align: center;
+    font-size: 30px;
+    padding: 15px;;
+}
+
+.display-error{
+    &.ng-invalid{
+        background-color: rgb(252, 187, 187);
+    }
+}
+
+.validation-message{
+    font-size: 10px;
+    color:rgb(255, 75, 75);
+}
